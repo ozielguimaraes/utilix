@@ -5,7 +5,7 @@ WORKDIR /build
 
 COPY apps/web/package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY apps/web .
 
