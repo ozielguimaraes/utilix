@@ -10,7 +10,7 @@ services:
       - "5000:8080"
     environment:
       ASPNETCORE_URLS: http://+:8080
-      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_ENVIRONMENT: Production
     volumes:
       - ./apps/api:/app/api
     depends_on:
@@ -25,8 +25,8 @@ services:
     ports:
       - "4200:80"
     environment:
-      NODE_ENV: development
-      API_URL: http://localhost:5000
+      NODE_ENV: production
+      API_URL: https://utilix-api.querc.app
     volumes:
       - ./apps/web/src:/app/src
       - ./apps/web/public:/app/public
@@ -37,8 +37,6 @@ services:
   redis:
     image: redis:7-alpine
     container_name: utilix-redis
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     restart: unless-stopped
