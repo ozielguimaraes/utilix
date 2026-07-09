@@ -1,0 +1,99 @@
+@if (isCompleted()) {
+  <div class="result">
+    <div class="result__success">
+      <span aria-hidden="true">✓</span>
+      <h2>{{ t('convert.youtube.completed') }}</h2>
+      <p>{{ t('convert.youtube.expiresIn') }}</p>
+      <div class="result__actions">
+        <ui-button variant="primary" size="lg" (click)="download()">
+          {{ t('convert.youtube.download') }}
+        </ui-button>
+        <ui-button variant="secondary" size="lg" (click)="reset()">
+          {{ t('convert.another') }}
+        </ui-button>
+      </div>
+    </div>
+  </div>
+} @else if (isFailed()) {
+  <div class="error">
+    <span aria-hidden="true">⚠</span>
+    <h2>{{ t('convert.youtube.error') }}</h2>
+    <p>{{ t(error() || 'errors.job.unknown_error') }}</p>
+    <div class="error__actions">
+      <ui-button variant="primary" size="lg" (click)="reset()">
+        {{ t('convert.youtube.tryAgain') }}
+      </ui-button>
+    </div>
+  </div>
+} @else if (isProcessing()) {
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-bar__fill" [style.width.%]="progress()?.percent || 0"></div>
+    </div>
+    <div class="progress-info">
+      <span class="progress-info__percent">{{ progress()?.percent || 0 }}%</span>
+      <span class="progress-info__stage">{{ progress()?.stage }}</span>
+    </div>
+  </div>
+} @else {
+  <form (ngSubmit)="submit()" class="form">
+    <div class="form__group">
+      <label for="url">{{ t('convert.youtube.urlLabel') }}</label>
+      <input
+        id="url"
+        type="url"
+        placeholder="https://youtube.com/watch?v=..."
+        [value]="url()"
+        (input)="onUrlInput($event)"
+        [disabled]="isSubmitting()"
+        required
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="format">{{ t('convert.youtube.formatLabel') }}</label>
+      <select
+        id="format"
+        [value]="format()"
+        (change)="onFormatChange($event)"
+        [disabled]="isSubmitting()"
+      >
+        <option value="video">{{ t('convert.youtube.format.video') }}</option>
+        <option value="audio">{{ t('convert.youtube.format.audio') }}</option>
+      </select>
+    </div>
+
+    @if (format() === 'video') {
+      <div class="form__group">
+        <label for="quality">{{ t('convert.youtube.qualityLabel') }}</label>
+        <select
+          id="quality"
+          [value]="quality()"
+          (change)="onQualityChange($event)"
+          [disabled]="isSubmitting()"
+        >
+          <option value="best">{{ t('convert.youtube.quality.best') }}</option>
+          <option value="1080p">1080p</option>
+          <option value="720p">720p</option>
+          <option value="480p">480p</option>
+        </select>
+      </div>
+    }
+
+    <div class="form__actions">
+      <ui-button
+        type="submit"
+        variant="primary"
+        size="lg"
+        [disabled]="isDisabled()"
+        [attr.aria-busy]="isSubmitting()"
+      >
+        @if (isSubmitting()) {
+          {{ t('convert.youtube.submitting') }}
+        } @else {
+          {{ t('convert.youtube.submit') }}
+        }
+      </ui-button>
+    </div>
+  </form>
+}

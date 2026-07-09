@@ -11,16 +11,19 @@
   </section>
 
   <ui-card>
-    <div class="wip">
-      <div class="wip__badge">{{ t('convert.wip.badge') }}</div>
-      <h2>{{ t('convert.wip.title') }}</h2>
-      <p>{{ t('convert.wip.desc') }}</p>
+    @if (slug() === 'youtube') {
+      <app-youtube-form />
+    } @else {
+      <div class="wip">
+        <div class="wip__badge">{{ t('convert.wip.badge') }}</div>
+        <h2>{{ t('convert.wip.title') }}</h2>
+        <p>{{ t('convert.wip.desc') }}</p>
 
-      @if (e.accepts === 'url') {
-        <div class="stub stub--input">
-          <input type="text" disabled [attr.placeholder]="t('convert.stub.url')" />
-        </div>
-      } @else {
+        @if (e.accepts === 'url') {
+          <div class="stub stub--input">
+            <input type="text" disabled [attr.placeholder]="t('convert.stub.url')" />
+          </div>
+        } @else {
         <div
           class="stub stub--drop"
           role="button"
@@ -52,14 +55,15 @@
             <small class="stub__error">{{ t('convert.stub.invalidType') }}</small>
           }
         </div>
-      }
+        }
 
-      <div class="wip__actions">
-        <ui-button variant="primary" size="lg" [disabled]="true">
-          {{ t('convert.stub.cta') }}
-        </ui-button>
+        <div class="wip__actions">
+          <ui-button variant="primary" size="lg" [disabled]="true">
+            {{ t('convert.stub.cta') }}
+          </ui-button>
+        </div>
       </div>
-    </div>
+    }
   </ui-card>
 } @else {
   <section class="head">

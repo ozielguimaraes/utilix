@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, computed, inject, input, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Button } from '../../shared/ui/button/button';
 import { Card } from '../../shared/ui/card/card';
 import { I18n } from '../../core/i18n';
+import { YoutubeForm } from './youtube-form/youtube-form';
 
 type EngineInfo = {
   icon: string;
@@ -41,7 +43,7 @@ function fileMatchesAccept(file: File, accept: string): boolean {
 
 @Component({
   selector: 'app-convert',
-  imports: [RouterLink, Button, Card],
+  imports: [CommonModule, RouterLink, Button, Card, YoutubeForm],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './convert.html',
   styleUrl: './convert.scss',
