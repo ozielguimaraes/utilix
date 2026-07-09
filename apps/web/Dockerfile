@@ -14,7 +14,7 @@ RUN npm run build
 # Runtime stage
 FROM nginx:alpine
 
-COPY --from=build /build/dist/apps/web /usr/share/nginx/html
+COPY --from=build /build/dist/web/browser /usr/share/nginx/html
 
 COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
 
