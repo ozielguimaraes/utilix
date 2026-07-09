@@ -1,0 +1,22 @@
+<section class="hero">
+  <h1>{{ t('home.hero.title') }}</h1>
+  <p>{{ t('home.hero.subtitle') }}</p>
+</section>
+
+<section class="catalog">
+  <h2>{{ t('home.catalog.title') }}</h2>
+
+  <div class="grid">
+    @for (engine of engines; track engine.slug) {
+      <a class="grid__link" [routerLink]="['/convert', engine.slug]">
+        <ui-card [interactive]="true">
+          <div class="engine">
+            <span class="engine__icon" aria-hidden="true">{{ engine.icon }}</span>
+            <h3 class="engine__name">{{ t(engine.nameKey) }}</h3>
+            <p class="engine__desc">{{ t(engine.descKey) }}</p>
+          </div>
+        </ui-card>
+      </a>
+    }
+  </div>
+</section>

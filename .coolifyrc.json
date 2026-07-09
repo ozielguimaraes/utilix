@@ -1,0 +1,65 @@
+{
+  "name": "utilix",
+  "description": "Zero-cost file conversion platform",
+  "services": {
+    "api": {
+      "name": "Utilix API",
+      "type": "docker",
+      "build": {
+        "context": ".",
+        "dockerfile": "apps/api/Dockerfile"
+      },
+      "ports": [
+        "5000:8080"
+      ],
+      "environment": {
+        "ASPNETCORE_URLS": "http://+:8080",
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "restart": "always"
+    },
+    "web": {
+      "name": "Utilix Web",
+      "type": "docker",
+      "build": {
+        "context": ".",
+        "dockerfile": "apps/web/Dockerfile"
+      },
+      "ports": [
+        "3000:80"
+      ],
+      "environment": {
+        "NODE_ENV": "production",
+        "API_URL": "https://api.utilix.example.com"
+      },
+      "restart": "always"
+    },
+    "redis": {
+      "name": "Redis Cache",
+      "type": "docker",
+      "image": "redis:7-alpine",
+      "ports": [
+        "6379:6379"
+      ],
+      "volumes": [
+        "redis_data:/data"
+      ],
+      "restart": "always"
+    }
+  },
+  "networks": {
+    "default": {
+      "name": "utilix-network",
+      "driver": "bridge"
+    }
+  },
+  "volumes": {
+    "redis_data": {}
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "author": "Oziel Silva",
+    "license": "TBD",
+    "repository": "https://github.com/ozielsilva/utilix"
+  }
+}

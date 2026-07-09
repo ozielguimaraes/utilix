@@ -1,0 +1,36 @@
+<header class="app-header">
+  <a class="app-header__brand" routerLink="/">
+    <span class="app-header__logo" aria-hidden="true">◈</span>
+    <span class="app-header__name">{{ title() }}</span>
+  </a>
+
+  <div class="app-header__actions">
+    <button
+      type="button"
+      class="app-header__iconbtn"
+      [attr.aria-label]="t('common.language')"
+      [title]="t('common.language')"
+      (click)="toggleLang()"
+    >
+      {{ lang() === 'pt-BR' ? 'PT' : 'EN' }}
+    </button>
+
+    <button
+      type="button"
+      class="app-header__iconbtn"
+      [attr.aria-label]="t('common.toggleTheme')"
+      [title]="t('common.toggleTheme')"
+      (click)="toggleTheme()"
+    >
+      {{ theme() === 'dark' ? '☀' : '☾' }}
+    </button>
+  </div>
+</header>
+
+<main>
+  <router-outlet />
+</main>
+
+<footer class="app-footer">
+  <span>{{ title() }} · {{ t('app.tagline') }}</span>
+</footer>

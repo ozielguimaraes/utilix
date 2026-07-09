@@ -1,0 +1,17 @@
+{
+  "name": "utilix",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Plataforma web de utilitarios de conversao",
+  "workspaces": [
+    "apps/web",
+    "packages/*"
+  ],
+  "scripts": {
+    "api:build": "dotnet build Utilix.slnx",
+    "api:run": "dotnet run --project apps/api/Utilix.Api",
+    "api:test": "dotnet test Utilix.slnx",
+    "web:start": "npm --workspace apps/web run start",
+    "web:build": "npm --workspace apps/web run build"
+  }
+}

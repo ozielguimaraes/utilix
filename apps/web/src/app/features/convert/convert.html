@@ -1,0 +1,74 @@
+@if (engine(); as e) {
+  <section class="head">
+    <a class="back" routerLink="/">← {{ t('convert.back') }}</a>
+    <div class="title">
+      <span class="title__icon" aria-hidden="true">{{ e.icon }}</span>
+      <div>
+        <h1>{{ t(e.nameKey) }}</h1>
+        <p>{{ t(e.descKey) }}</p>
+      </div>
+    </div>
+  </section>
+
+  <ui-card>
+    <div class="wip">
+      <div class="wip__badge">{{ t('convert.wip.badge') }}</div>
+      <h2>{{ t('convert.wip.title') }}</h2>
+      <p>{{ t('convert.wip.desc') }}</p>
+
+      @if (e.accepts === 'url') {
+        <div class="stub stub--input">
+          <input type="text" disabled [attr.placeholder]="t('convert.stub.url')" />
+        </div>
+      } @else {
+        <div
+          class="stub stub--drop"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="t('convert.stub.drop')"
+          [class.stub--dragging]="isDragging()"
+          (click)="openFilePicker()"
+          (keydown.enter)="openFilePicker()"
+          (keydown.space)="onDropAreaSpace($event)"
+          (dragover)="onDropAreaDragOver($event)"
+          (dragleave)="onDropAreaDragLeave($event)"
+          (drop)="onDropAreaDrop($event)"
+        >
+          <input
+            #fileInput
+            class="stub__input"
+            type="file"
+            [accept]="e.accepts"
+            (change)="onFileInputChange($event)"
+          />
+          <span class="stub__icon" aria-hidden="true">⬆</span>
+          <span>{{ t('convert.stub.drop') }}</span>
+          @if (selectedFileName(); as fileName) {
+            <small class="stub__file">{{ t('convert.stub.selected') }} {{ fileName }}</small>
+          } @else {
+            <small>{{ e.accepts }}</small>
+          }
+          @if (hasInvalidType()) {
+            <small class="stub__error">{{ t('convert.stub.invalidType') }}</small>
+          }
+        </div>
+      }
+
+      <div class="wip__actions">
+        <ui-button variant="primary" size="lg" [disabled]="true">
+          {{ t('convert.stub.cta') }}
+        </ui-button>
+      </div>
+    </div>
+  </ui-card>
+} @else {
+  <section class="head">
+    <a class="back" routerLink="/">← {{ t('convert.back') }}</a>
+  </section>
+  <ui-card>
+    <div class="wip">
+      <h2>{{ t('convert.notfound.title') }}</h2>
+      <p>{{ t('convert.notfound.desc') }}</p>
+    </div>
+  </ui-card>
+}

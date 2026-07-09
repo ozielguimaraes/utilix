@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/apps/" />
+  <Folder Name="/apps/api/">
+    <Project Path="apps/api/Utilix.Abstractions/Utilix.Abstractions.csproj" />
+    <Project Path="apps/api/Utilix.Api/Utilix.Api.csproj" />
+    <Project Path="apps/api/Utilix.Tests/Utilix.Tests.csproj" />
+  </Folder>
+</Solution>
